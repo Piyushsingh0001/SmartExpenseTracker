@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartExpenseTracker.ViewModels"
+             x:Class="SmartExpenseTracker.Views.BudgetPage"
+             x:DataType="vm:BudgetViewModel"
+             Title="{Binding Title}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <Label Text="Monthly Budget" FontSize="22" FontAttributes="Bold" />
+
+            <!-- Set Budget -->
+            <Frame CornerRadius="12" Padding="16" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Set Monthly Limit (₹)" FontAttributes="Bold" />
+                    <Entry Text="{Binding MonthlyLimit}" Keyboard="Numeric"
+                           Placeholder="e.g. 30000" />
+                    <Button Text="Save Budget"
+                            Command="{Binding SaveBudgetCommand}"
+                            BackgroundColor="#2E75B6" TextColor="White" CornerRadius="8" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Summary -->
+            <Frame CornerRadius="12" Padding="16" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="This Month" FontSize="16" FontAttributes="Bold" />
+                    <Label Text="{Binding Spent, StringFormat='Spent: ₹{0:N2}'}" FontSize="16" />
+                    <Label Text="{Binding Remaining, StringFormat='Remaining: ₹{0:N2}'}"
+                           FontSize="16" TextColor="Green" />
+                    <ProgressBar Progress="{Binding Percent, Converter={StaticResource PctConverter}}"
+                                 ProgressColor="#E74C3C" />
+                    <Label Text="{Binding Percent, StringFormat='{0:F1}% of budget used'}"
+                           HorizontalOptions="End" TextColor="Gray" FontSize="12" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

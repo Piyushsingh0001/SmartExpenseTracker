@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartExpenseTracker.ViewModels"
+             x:Class="SmartExpenseTracker.Views.AddExpensePage"
+             x:DataType="vm:AddExpenseViewModel"
+             Title="{Binding Title}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label Text="Amount (₹)" FontAttributes="Bold" />
+            <Entry Placeholder="0.00" Keyboard="Numeric"
+                   Text="{Binding Amount}" />
+
+            <Label Text="Category" FontAttributes="Bold" />
+            <Picker ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding Category}" />
+
+            <Label Text="Type" FontAttributes="Bold" />
+            <Picker ItemsSource="{Binding Types}"
+                    SelectedItem="{Binding Type}" />
+
+            <Label Text="Payment Mode" FontAttributes="Bold" />
+            <Picker ItemsSource="{Binding PaymentModes}"
+                    SelectedItem="{Binding PaymentMode}" />
+
+            <Label Text="Date" FontAttributes="Bold" />
+            <DatePicker Date="{Binding Date}" />
+
+            <Label Text="Notes" FontAttributes="Bold" />
+            <Editor Placeholder="Optional notes..."
+                    Text="{Binding Notes}" HeightRequest="80" />
+
+            <Button Text="Save Expense"
+                    Command="{Binding SaveCommand}"
+                    BackgroundColor="#2E75B6" TextColor="White"
+                    CornerRadius="8" HeightRequest="50" Margin="0,8" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

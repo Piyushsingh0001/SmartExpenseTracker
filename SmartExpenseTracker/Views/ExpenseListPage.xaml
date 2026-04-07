@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartExpenseTracker.ViewModels"
+             xmlns:models="clr-namespace:SmartExpenseTracker.Models"
+             x:Class="SmartExpenseTracker.Views.ExpenseListPage"
+             x:DataType="vm:ExpenseListViewModel"
+             Title="{Binding Title}">
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Search Bar -->
+        <SearchBar Grid.Row="0" Placeholder="Search expenses..."
+                   Text="{Binding SearchText}" Margin="8" />
+
+        <!-- Category Filter -->
+        <Picker Grid.Row="1" ItemsSource="{Binding FilterCategories}"
+                SelectedItem="{Binding SelectedCategory}" Margin="8,0" />
+
+        <!-- Expense List -->
+        <RefreshView Grid.Row="2" Command="{Binding LoadCommand}"
+                     IsRefreshing="{Binding IsBusy}">
+            <CollectionView ItemsSource="{Binding Expenses}"
+                            EmptyView="No expenses found.">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Expense">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete" BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                                                 Path=BindingContext.DeleteCommand}"
+                                               CommandParameter="{Binding .}" />
+                                    <SwipeItem Text="Edit" BackgroundColor="Orange"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}},
+                                                                 Path=BindingContext.EditCommand}"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame Margin="8,4" Padding="12" CornerRadius="10"
+                                   HasShadow="True" BackgroundColor="White">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding Category}" FontAttributes="Bold" FontSize="15" />
+                                        <Label Text="{Binding Type}" TextColor="Gray" FontSize="12" />
+                                        <Label Text="{Binding Date, StringFormat='{0:dd MMM yyyy}'}"
+                                               TextColor="Gray" FontSize="12" />
+                                        <Label Text="{Binding Notes}" FontSize="12"
+                                               IsVisible="{Binding Notes, Converter={StaticResource NotNullConverter}}" />
+                                    </VerticalStackLayout>
+                                    <Label Grid.Column="1" VerticalOptions="Center"
+                                           Text="{Binding Amount, StringFormat='₹{0:N2}'}"
+                                           FontSize="18" FontAttributes="Bold" TextColor="#E74C3C" />
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartExpenseTracker.ViewModels"
+             x:Class="SmartExpenseTracker.Views.SettingsPage"
+             x:DataType="vm:SettingsViewModel"
+             Title="{Binding Title}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+
+            <!-- PIN Lock Section -->
+            <Label Text="Security" FontSize="18" FontAttributes="Bold" />
+            <Frame CornerRadius="12" Padding="16" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="{Binding IsPinEnabled, StringFormat='PIN Lock: {0}'}" />
+                    <Entry Placeholder="Enter 4-digit PIN" MaxLength="4"
+                           Keyboard="Numeric" IsPassword="True"
+                           Text="{Binding PinInput}" />
+                    <Button Text="Set PIN" Command="{Binding SetPinCommand}"
+                            BackgroundColor="#2E75B6" TextColor="White" CornerRadius="8" />
+                    <Button Text="Disable PIN" Command="{Binding DisablePinCommand}"
+                            BackgroundColor="#E74C3C" TextColor="White" CornerRadius="8"
+                            IsVisible="{Binding IsPinEnabled}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Data Section -->
+            <Label Text="Data Management" FontSize="18" FontAttributes="Bold" />
+            <Frame CornerRadius="12" Padding="16" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Button Text="Export to Excel" Command="{Binding ExportExcelCommand}"
+                            BackgroundColor="#27AE60" TextColor="White" CornerRadius="8" />
+                    <Button Text="Backup Database" Command="{Binding BackupCommand}"
+                            BackgroundColor="#F39C12" TextColor="White" CornerRadius="8" />
+                    <Button Text="Restore from Backup" Command="{Binding RestoreCommand}"
+                            BackgroundColor="#8E44AD" TextColor="White" CornerRadius="8" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

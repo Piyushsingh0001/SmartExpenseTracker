@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SmartExpenseTracker.ViewModels"
+             xmlns:charts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="SmartExpenseTracker.Views.ChartsPage"
+             x:DataType="vm:ChartsViewModel"
+             Title="{Binding Title}">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Category Breakdown (This Month)"
+                   FontAttributes="Bold" FontSize="16" />
+            <charts:ChartView Chart="{Binding CategoryChart}"
+                              HeightRequest="280" />
+
+            <Label Text="Monthly Spending (Last 6 Months)"
+                   FontAttributes="Bold" FontSize="16" />
+            <charts:ChartView Chart="{Binding MonthlyChart}"
+                              HeightRequest="280" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+
